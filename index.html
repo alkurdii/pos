@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>پیتێن کوردی</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@500;700&family=Noto+Sans+Arabic:wght@400;600;800&display=swap">
+<style>
+  /* Layout: one calm column — a big "chalk slate" for the current letter, then the full alphabet as a tap-grid. Colours from the Kurdish flag, softened. */
+  :root {
+    --bg: #f3f6f1;
+    --surface: #ffffff;
+    --ink: #17301f;
+    --muted: #5b6f60;
+    --line: #d5e0d4;
+    --green: #1f7a3f;
+    --green-soft: #e1f0e4;
+    --sun: #e9a400;
+    --sun-soft: #fff3cf;
+    --red: #c4302b;
+    --red-soft: #fbe3e1;
+    --letter: "Noto Naskh Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma, serif;
+    --ui: "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101a13; --surface: #182419; --ink: #eaf2ea; --muted: #a3b5a6; --line: #2b3b2e;
+      --green: #5cc283; --green-soft: #1d3624; --sun: #f5c33b; --sun-soft: #3a3014;
+      --red: #f07a73; --red-soft: #3d1d1b; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101a13; --surface: #182419; --ink: #eaf2ea; --muted: #a3b5a6; --line: #2b3b2e;
+    --green: #5cc283; --green-soft: #1d3624; --sun: #f5c33b; --sun-soft: #3a3014;
+    --red: #f07a73; --red-soft: #3d1d1b; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--ui); font-size: 1.125rem; line-height: 1.7;
+  }
+  .wrap {
+    max-width: 1000px; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 20px 48px;
+    display: grid; gap: 24px;
+  }
+
+  header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+  h1 { margin: 0; font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 800; line-height: 1.3; text-wrap: balance; }
+  h1 .sun { color: var(--sun); }
+  .sub { margin: 0; color: var(--muted); font-size: 1rem; }
+
+  .tabs { display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px; }
+  .tab {
+    font: inherit; font-weight: 600; font-size: 1.1rem; color: var(--muted);
+    background: transparent; border: 0; border-radius: 999px; padding: 8px 22px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: var(--green); color: #fff; }
+  :root[data-theme="dark"] .tab[aria-selected="true"] { color: #0c1a10; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tab[aria-selected="true"] { color: #0c1a10; } }
+
+  button:focus-visible, .cell:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+
+  /* ---------- Learn ---------- */
+  .slate {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 28px;
+    padding: clamp(16px, 4vw, 32px);
+    display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: center;
+  }
+  @media (max-width: 720px) { .slate { grid-template-columns: minmax(0, 1fr); } }
+
+  .bigbox {
+    position: relative; background: var(--green-soft); border-radius: 22px;
+    display: grid; place-items: center; min-height: clamp(240px, 52vw, 380px);
+  }
+  .big {
+    font-family: var(--letter); font-weight: 700; color: var(--green);
+    font-size: clamp(9rem, 34vw, 15rem); line-height: 1.35;
+  }
+  .count {
+    position: absolute; top: 12px; inset-inline-start: 16px;
+    font-size: 0.95rem; color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  .done-badge {
+    position: absolute; top: 12px; inset-inline-end: 16px;
+    background: var(--sun); color: #2a1f00; font-weight: 800; font-size: 0.9rem;
+    border-radius: 999px; padding: 2px 12px;
+  }
+
+  .info { display: grid; gap: 18px; min-width: 0; }
+  .label { font-size: 0.9rem; color: var(--muted); letter-spacing: 0.02em; margin: 0 0 4px; }
+  .example { display: flex; align-items: center; gap: 16px; }
+  .emoji { font-size: clamp(3rem, 9vw, 4rem); line-height: 1; }
+  .word { font-family: var(--letter); font-size: clamp(2.6rem, 8vw, 3.6rem); font-weight: 700; line-height: 1.5; }
+  .word mark { background: none; color: var(--sun); }
+
+  .forms { display: flex; flex-wrap: wrap; gap: 10px; }
+  .form {
+    border: 1px solid var(--line); border-radius: 14px; padding: 4px 14px 8px; min-width: 76px;
+    display: grid; justify-items: center;
+  }
+  .form b { font-family: var(--letter); font-size: 2.6rem; font-weight: 700; line-height: 1.6; }
+  .form span { font-size: 0.8rem; color: var(--muted); }
+  .note { margin: 8px 0 0; font-size: 0.95rem; color: var(--muted); }
+  .latin { font-family: ui-sans-serif, system-ui, sans-serif; direction: ltr; unicode-bidi: isolate; font-weight: 700; color: var(--ink); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    font: inherit; font-weight: 700; font-size: 1.15rem; cursor: pointer;
+    border-radius: 16px; padding: 12px 22px; border: 2px solid var(--line);
+    background: var(--surface); color: var(--ink); min-height: 56px;
+  }
+  .btn:hover { border-color: var(--green); }
+  .btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
+  :root[data-theme="dark"] .btn.primary { color: #0c1a10; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0c1a10; } }
+  .btn.learned[aria-pressed="true"] { background: var(--sun-soft); border-color: var(--sun); }
+  .grow { flex: 1 1 auto; }
+
+  .grid-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+  h2 { margin: 0; font-size: 1.5rem; font-weight: 800; }
+  .progress { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .bar { width: 140px; height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--sun); border-radius: 99px; transition: width .3s; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 10px; }
+  .cell {
+    position: relative; font: inherit; cursor: pointer; color: var(--ink);
+    background: var(--surface); border: 2px solid var(--line); border-radius: 18px;
+    aspect-ratio: 1; max-width: 100%; display: grid; place-items: center;
+  }
+  .cell b { font-family: var(--letter); font-size: 3.1rem; font-weight: 700; line-height: 1; padding-bottom: 6px; }
+  .cell:hover { border-color: var(--green); }
+  .cell.current { border-color: var(--green); background: var(--green-soft); color: var(--green); }
+  .cell.is-done::after {
+    content: "✓"; position: absolute; top: 4px; inset-inline-end: 8px;
+    font-size: 0.85rem; font-weight: 800; color: var(--sun);
+  }
+  .hint { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- Quiz ---------- */
+  .quiz {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 28px;
+    padding: clamp(18px, 4vw, 36px); display: grid; gap: 22px; justify-items: center; text-align: center;
+  }
+  .q-top { width: 100%; display: flex; justify-content: space-between; color: var(--muted); font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .q-emoji { font-size: clamp(5rem, 18vw, 7rem); line-height: 1.1; }
+  .q-word { font-family: var(--letter); font-size: clamp(3.4rem, 12vw, 5rem); font-weight: 700; line-height: 1.4; margin-top: -10px; }
+  .q-ask { margin: 0; font-size: 1.3rem; font-weight: 600; }
+  .options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 620px; }
+  @media (max-width: 480px) { .options { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .opt {
+    font-family: var(--letter); font-size: clamp(3.4rem, 12vw, 4.4rem); font-weight: 700; line-height: 1.5;
+    cursor: pointer; color: var(--ink); background: var(--bg); border: 3px solid var(--line); border-radius: 22px;
+    padding: 4px 0 10px;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--green); }
+  .opt.right { background: var(--green-soft); border-color: var(--green); color: var(--green); }
+  .opt.wrong { background: var(--red-soft); border-color: var(--red); color: var(--red); }
+  .opt:disabled { cursor: default; }
+  .feedback { min-height: 2.2em; margin: 0; font-size: 1.35rem; font-weight: 800; }
+  .feedback.ok { color: var(--green); }
+  .feedback.no { color: var(--red); }
+
+  footer { color: var(--muted); font-size: 0.95rem; text-align: center; }
+
+  @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+</head>
+<body style="margin:0">
+
+<div class="wrap" dir="rtl" lang="ckb">
+  <header>
+    <div>
+      <h1>پیتێن کوردی <span class="sun">☀</span></h1>
+      <p class="sub">ب ساناهی فێری ٣٤ پیتێن ئەلفوبێیا کوردی ببە</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="بەش">
+      <button class="tab" role="tab" id="tab-learn" aria-selected="true" aria-controls="view-learn">فێربوون</button>
+      <button class="tab" role="tab" id="tab-quiz" aria-selected="false" aria-controls="view-quiz">تاقیکرن</button>
+    </div>
+  </header>
+
+  <main id="view-learn" role="tabpanel" aria-labelledby="tab-learn" style="display:grid;gap:24px">
+    <section class="slate" aria-live="polite">
+      <div class="bigbox">
+        <span class="count" id="count"></span>
+        <span class="done-badge" id="doneBadge" hidden>فێربووی ✓</span>
+        <span class="big" id="big"></span>
+      </div>
+      <div class="info">
+        <div>
+          <p class="label">نموونە</p>
+          <div class="example">
+            <span class="emoji" id="emoji" aria-hidden="true"></span>
+            <span class="word" id="word"></span>
+          </div>
+        </div>
+        <div>
+          <p class="label">شێوەیێن پیتێ د ناڤ پەیڤێ دا</p>
+          <div class="forms" id="forms"></div>
+          <p class="note" id="note"></p>
+        </div>
+        <p class="note" style="margin:0">ب لاتینی: <span class="latin" id="latin"></span></p>
+        <div class="controls">
+          <button class="btn" id="prev">→ پێشتر</button>
+          <button class="btn primary grow" id="next">پاشتر ←</button>
+          <button class="btn learned" id="learned" aria-pressed="false">من ئەڤ پیتە فێربوو</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:14px">
+      <div class="grid-head">
+        <h2>هەمی پیت</h2>
+        <div class="progress"><span id="progText"></span><span class="bar"><i id="progBar" style="width:0"></i></span></div>
+      </div>
+      <p class="hint">ل سەر هەر پیتەکێ بدە دا مەزن ببیت.</p>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <main id="view-quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+    <section class="quiz">
+      <div class="q-top"><span id="qNum"></span><span id="qScore"></span></div>
+      <div class="q-emoji" id="qEmoji" aria-hidden="true"></div>
+      <div class="q-word" id="qWord"></div>
+      <p class="q-ask">ئەڤ پەیڤە ب کیژ پیتێ دەست پێدکەت؟</p>
+      <div class="options" id="options"></div>
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+      <button class="btn primary" id="qNext" hidden>پسیارا دی ←</button>
+    </section>
+  </main>
+
+  <footer>چ دەنگ و موزیک د ناڤ ڤی مالپەری دا نینن.</footer>
+</div>
+
+<script>
+(function () {
+  // [letter, latin, example word, picture, joins to the next letter?]
+  var L = [
+    ["ئ", "ʼ",  "ئاگر",   "🔥", true],
+    ["ا", "a",  "مار",    "🐍", false],
+    ["ب", "b",  "بەرخ",   "🐑", true],
+    ["پ", "p",  "پشیک",   "🐱", true],
+    ["ت", "t",  "تری",    "🍇", true],
+    ["ج", "c",  "جل",     "👕", true],
+    ["چ", "ç",  "چاڤ",    "👁️", true],
+    ["ح", "ḧ",  "حەفت",   "7️⃣", true],
+    ["خ", "x",  "خانی",   "🏠", true],
+    ["د", "d",  "دار",    "🌳", false],
+    ["ر", "r",  "باران",  "🌧️", false],
+    ["ڕ", "rr", "ڕێ",     "🛣️", false],
+    ["ز", "z",  "زمان",   "👅", false],
+    ["ژ", "j",  "ژن",     "👩", false],
+    ["س", "s",  "سێڤ",    "🍎", true],
+    ["ش", "ş",  "شێر",    "🦁", true],
+    ["ع", "‛",  "عەرد",   "🌍", true],
+    ["غ", "ẍ",  "غەزال",  "🦌", true],
+    ["ف", "f",  "فیل",    "🐘", true],
+    ["ڤ", "v",  "ئاڤ",    "💧", true],
+    ["ق", "q",  "قەلەم",  "✏️", true],
+    ["ک", "k",  "کتێب",   "📖", true],
+    ["گ", "g",  "گول",    "🌹", true],
+    ["ل", "l",  "لێڤ",    "👄", true],
+    ["ڵ", "ll", "باڵندە", "🐦", true],
+    ["م", "m",  "ماسی",   "🐟", true],
+    ["ن", "n",  "نان",    "🍞", true],
+    ["و", "w",  "ورچ",    "🐻", false],
+    ["وو", "û", "دوو",    "2️⃣", false],
+    ["ۆ", "o",  "تۆپ",    "⚽", false],
+    ["ه", "h",  "هەسپ",   "🐎", true],
+    ["ە", "e",  "بەفر",   "❄️", false],
+    ["ی", "y / î", "یەک", "1️⃣", true],
+    ["ێ", "ê",  "سێ",     "3️⃣", true]
+  ];
+  // Letters that look alike — used as tricky choices in the quiz.
+  var LOOKALIKE = ["ب پ ت", "ج چ ح خ", "د", "ر ڕ ز ژ", "س ش", "ع غ", "ف ڤ ق", "ک گ", "ل ڵ", "و ۆ وو", "ی ێ", "ه ە"];
+  var T = "ـ";
+  var $ = function (id) { return document.getElementById(id); };
+  var kd = function (n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); };
+  var esc = function (s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  var cur = store.get("pk-cur", 0);
+  if (!(cur >= 0 && cur < L.length)) cur = 0;
+  var done = store.get("pk-done", []);
+  if (!Array.isArray(done)) done = [];
+
+  function markWord(word, ch) {
+    var i = word.indexOf(ch);
+    if (i < 0) return esc(word);
+    return esc(word.slice(0, i)) + "<mark>" + esc(ch) + "</mark>" + esc(word.slice(i + ch.length));
+  }
+
+  // ---------- Learn ----------
+  var grid = $("grid");
+  L.forEach(function (row, i) {
+    var b = document.createElement("button");
+    b.className = "cell";
+    b.id = "cell-" + i;
+    b.setAttribute("aria-label", "پیتا " + row[0]);
+    b.innerHTML = "<b>" + row[0] + "</b>";
+    b.addEventListener("click", function () {
+      show(i);
+      var top = document.querySelector(".slate").getBoundingClientRect().top;
+      if (top < 0) document.querySelector(".slate").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    });
+    grid.appendChild(b);
+  });
+
+  function show(i) {
+    cur = (i + L.length) % L.length;
+    store.set("pk-cur", cur);
+    var r = L[cur], ch = r[0];
+    $("big").textContent = ch;
+    $("count").textContent = "پیتا " + kd(cur + 1) + " ژ " + kd(L.length);
+    $("emoji").textContent = r[3];
+    $("word").innerHTML = markWord(r[2], ch);
+    $("latin").textContent = r[1];
+
+    var forms = r[4]
+      ? [["ب تنێ", ch], ["دەسپێک", ch + T], ["ناڤەراست", T + ch + T], ["دوماهی", T + ch]]
+      : [["ب تنێ", ch], ["دوماهی", T + ch]];
+    $("forms").innerHTML = forms.map(function (f) {
+      return '<div class="form"><b>' + f[1] + "</b><span>" + f[0] + "</span></div>";
+    }).join("");
+    $("note").textContent = r[4] ? "" : "ئەڤ پیتە ب پیتا پشتی خۆ ڤە نالکیت.";
+    $("note").hidden = r[4];
+
+    var isDone = done.indexOf(cur) > -1;
+    $("learned").setAttribute("aria-pressed", String(isDone));
+    $("learned").textContent = isDone ? "✓ فێربووی" : "من ئەڤ پیتە فێربوو";
+    $("doneBadge").hidden = !isDone;
+
+    for (var k = 0; k < L.length; k++) {
+      var c = $("cell-" + k);
+      c.classList.toggle("current", k === cur);
+      c.classList.toggle("is-done", done.indexOf(k) > -1);
+    }
+    $("progText").textContent = "فێربووی: " + kd(done.length) + " ژ " + kd(L.length);
+    $("progBar").style.width = (done.length / L.length * 100) + "%";
+  }
+
+  $("next").addEventListener("click", function () { show(cur + 1); });
+  $("prev").addEventListener("click", function () { show(cur - 1); });
+  $("learned").addEventListener("click", function () {
+    var at = done.indexOf(cur);
+    if (at > -1) done.splice(at, 1); else done.push(cur);
+    store.set("pk-done", done);
+    show(cur);
+  });
+
+  // ---------- Quiz ----------
+  // Only words that really start with the letter make a fair question.
+  var pool = [];
+  L.forEach(function (r, i) { if (r[2].indexOf(r[0]) === 0) pool.push(i); });
+  var qi = -1, last = -1, asked = 0, right = 0, firstTry = true;
+
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  function choices(target) {
+    var ch = L[target][0], picks = [ch];
+    LOOKALIKE.forEach(function (g) {
+      var parts = g.split(" ");
+      if (parts.indexOf(ch) > -1) shuffle(parts.filter(function (p) { return p !== ch; })).slice(0, 2).forEach(function (p) { picks.push(p); });
+    });
+    var rest = shuffle(L.map(function (r) { return r[0]; }).filter(function (p) { return picks.indexOf(p) < 0; }));
+    while (picks.length < 4) picks.push(rest.pop());
+    return shuffle(picks);
+  }
+
+  function ask() {
+    do { qi = pool[Math.floor(Math.random() * pool.length)]; } while (pool.length > 1 && qi === last);
+    last = qi; firstTry = true;
+    var r = L[qi];
+    $("qNum").textContent = "پسیار " + kd(asked + 1);
+    $("qEmoji").textContent = r[3];
+    $("qWord").textContent = r[2];
+    $("feedback").textContent = ""; $("feedback").className = "feedback";
+    $("qNext").hidden = true;
+    var box = $("options"); box.innerHTML = "";
+    choices(qi).forEach(function (c) {
+      var b = document.createElement("button");
+      b.className = "opt"; b.textContent = c;
+      b.addEventListener("click", function () { answer(b, c); });
+      box.appendChild(b);
+    });
+    score();
+  }
+
+  function answer(btn, c) {
+    if (c === L[qi][0]) {
+      btn.classList.add("right");
+      if (firstTry) right++;
+      asked++;
+      $("feedback").textContent = "ئافەرین! دروستە 👏"; $("feedback").className = "feedback ok";
+      Array.prototype.forEach.call($("options").children, function (b) { b.disabled = true; });
+      $("qNext").hidden = false; $("qNext").focus();
+    } else {
+      firstTry = false;
+      btn.classList.add("wrong"); btn.disabled = true;
+      $("feedback").textContent = "نە، جارەکا دی هەول بدە"; $("feedback").className = "feedback no";
+    }
+    score();
+  }
+  function score() { $("qScore").textContent = "دروست ژ جارا ئێکێ: " + kd(right) + " ژ " + kd(asked); }
+  $("qNext").addEventListener("click", ask);
+
+  // ---------- Tabs & keys ----------
+  function tab(name) {
+    var learn = name === "learn";
+    $("tab-learn").setAttribute("aria-selected", String(learn));
+    $("tab-quiz").setAttribute("aria-selected", String(!learn));
+    $("view-learn").hidden = !learn;
+    $("view-quiz").hidden = learn;
+    if (!learn && qi < 0) ask();
+  }
+  $("tab-learn").addEventListener("click", function () { tab("learn"); });
+  $("tab-quiz").addEventListener("click", function () { tab("quiz"); });
+
+  document.addEventListener("keydown", function (e) {
+    if ($("view-learn").hidden) return;
+    if (e.key === "ArrowLeft") { show(cur + 1); e.preventDefault(); }
+    if (e.key === "ArrowRight") { show(cur - 1); e.preventDefault(); }
+  });
+
+  show(cur);
+})();
+</script>
+</body>
+</html>
