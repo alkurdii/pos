@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../letters.dart';
 import '../progress.dart';
 import '../theme.dart';
+import '../widgets/sound.dart';
 
 /// Shows one big letter at a time, with a picture word and its forms,
 /// and the whole alphabet as a grid underneath.
@@ -69,7 +70,7 @@ class _LearnScreenState extends State<LearnScreen> {
             _LetterGrid(progress: widget.progress, onTap: _openFromGrid),
             const SizedBox(height: 28),
             Text(
-              'چ دەنگ و موزیک د ناڤ ڤی ئەپی دا نینن.',
+              'چ موزیک د ناڤ ڤی ئەپی دا نینە. تەنێ دەنگێ پیتان هەیە.',
               textAlign: TextAlign.center,
               style: TextStyle(color: p.muted, fontSize: 15),
             ),
@@ -138,6 +139,11 @@ class _Slate extends StatelessWidget {
                     'پیتا ${kurdishDigits(progress.current + 1)} ژ ${kurdishDigits(count)}',
                     style: TextStyle(color: p.muted, fontSize: 15),
                   ),
+                ),
+                PositionedDirectional(
+                  bottom: 12,
+                  end: 12,
+                  child: PlaySoundButton(letter: letter, size: 64),
                 ),
                 if (learned)
                   PositionedDirectional(

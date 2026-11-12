@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../letters.dart';
 import '../quiz.dart';
 import '../theme.dart';
+import '../widgets/sound.dart';
 
 /// Shows a picture word and asks which letter it starts with.
 class QuizScreen extends StatefulWidget {
@@ -75,7 +76,9 @@ class _QuizScreenState extends State<QuizScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 10),
+              PlaySoundButton(key: ValueKey('quiz-sound-${_q.letter.char}'), letter: _q.letter, size: 64),
+              const SizedBox(height: 12),
               LayoutBuilder(
                 builder: (context, box) {
                   final columns = box.maxWidth >= 520 ? 4 : 2;
