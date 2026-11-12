@@ -60,7 +60,7 @@
   .tabs { display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px; }
   .tab {
     font: inherit; font-weight: 600; font-size: 1.1rem; color: var(--muted);
-    background: transparent; border: 0; border-radius: 999px; padding: 8px 22px; cursor: pointer;
+    background: transparent; border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; white-space: nowrap;
   }
   .tab[aria-selected="true"] { background: var(--green); color: #fff; }
   :root[data-theme="dark"] .tab[aria-selected="true"] { color: #0c1a10; }
@@ -169,7 +169,109 @@
   .feedback.ok { color: var(--green); }
   .feedback.no { color: var(--red); }
 
-  footer { color: var(--muted); font-size: 0.95rem; text-align: center; }
+  footer { color: var(--muted); font-size: 0.95rem; text-align: center; display: grid; gap: 6px; }
+  footer p { margin: 0; }
+  .credits summary { cursor: pointer; }
+  .credits ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; text-align: start; font-size: 0.85rem; }
+  .credits a { color: var(--green); }
+
+  /* ---------- Today ---------- */
+  .today { display: grid; gap: 22px; }
+  .dayhead {
+    display: flex; gap: 16px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 16px;
+  }
+  .daybox {
+    flex: none; width: 88px; height: 88px; border-radius: 20px; background: var(--green); color: #fff;
+    display: grid; place-items: center; align-content: center; line-height: 1.1;
+  }
+  :root[data-theme="dark"] .daybox { color: #0c1a10; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .daybox { color: #0c1a10; } }
+  .daybox b { font-size: 2.2rem; }
+  .daymeta { flex: 1; min-width: 0; display: grid; gap: 6px; }
+  .daymeta .hint { margin: 0; }
+  .daytitle { margin: 0; font-size: 1.3rem; font-weight: 800; }
+  .bar.wide { width: 100%; height: 14px; }
+  .donecard { display: flex; gap: 14px; align-items: center; background: var(--green-soft); border-radius: 22px; padding: 16px; }
+  .donecard .hint { margin: 0; }
+  .done-ico { font-size: 3rem; color: var(--green); line-height: 1; }
+  .done-title { margin: 0; color: var(--green); font-weight: 800; font-size: 1.3rem; }
+  .sec-wrap { display: grid; gap: 12px; }
+  .sec { margin: 0; font-size: 1.25rem; font-weight: 800; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 12px; }
+  .tiles.big { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .tile {
+    font: inherit; color: var(--ink); cursor: pointer; background: var(--surface);
+    border: 2px solid var(--line); border-radius: 22px; padding: 8px 8px 14px;
+    display: grid; justify-items: center; gap: 4px;
+  }
+  .tile:hover { border-color: var(--green); }
+  .tile.done { background: var(--green-soft); border-color: var(--green); color: var(--green); }
+  .tile b { font-family: var(--letter); font-size: 3.4rem; line-height: 1.5; }
+  .tiles.big .tile b { font-size: 5rem; }
+  .ring {
+    --p: 0; --rc: var(--sun);
+    width: 58px; height: 58px; border-radius: 50%; flex: none;
+    background: conic-gradient(var(--rc) calc(var(--p) * 1%), var(--line) 0);
+    display: grid; place-items: center; position: relative;
+  }
+  .ring::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: var(--surface); }
+  .tile.done .ring::before { background: var(--green-soft); }
+  .ring > span { position: relative; font-weight: 800; font-size: 1.05rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .ring.full { --rc: var(--green); }
+  .ring.full > span { color: var(--green); }
+  .ring.big { width: 96px; height: 96px; }
+  .ring.big::before { inset: 9px; background: var(--bg); }
+  .ring.big > span { font-size: 1.6rem; }
+  .planbox { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px; }
+  .planbox summary { cursor: pointer; font-weight: 700; font-size: 1.05rem; }
+  .rules { margin: 12px 0; padding-inline-start: 22px; display: grid; gap: 6px; font-size: 1rem; }
+  .plan-table { display: grid; gap: 6px; }
+  .prow { display: grid; grid-template-columns: 5.5em minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 2px 12px; border-radius: 12px; border: 1px solid var(--line); }
+  .prow.now { background: var(--green-soft); border-color: var(--green); }
+  .prow .pl { font-family: var(--letter); font-weight: 700; font-size: 1.7rem; line-height: 1.6; word-spacing: 0.4em; }
+  .prow .pr { color: var(--muted); font-size: 0.9rem; }
+  .dayjump { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+  .dayjump select { font: inherit; padding: 8px 12px; border-radius: 12px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); }
+
+  /* ---------- Practice: one letter, tap to count ---------- */
+  .practice {
+    position: fixed; inset: 0; z-index: 30; overflow-y: auto; background: var(--bg);
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .p-inner { max-width: 560px; margin: 0 auto; padding-block: 14px 32px; display: grid; gap: 18px; }
+  .p-top { display: flex; align-items: center; justify-content: center; gap: 16px; position: relative; min-height: 96px; }
+  .iconbtn {
+    position: absolute; inset-inline-start: 0; top: 0;
+    font: inherit; font-size: 1.8rem; width: 52px; height: 52px; border-radius: 16px; cursor: pointer;
+    border: 2px solid var(--line); background: var(--surface); color: var(--ink);
+  }
+  .p-count { font-size: 2.1rem; font-variant-numeric: tabular-nums; }
+  .p-count.full { color: var(--green); }
+  .tapbig {
+    position: relative; font: inherit; cursor: pointer; width: 100%; min-height: 320px;
+    background: var(--surface); color: var(--ink); border: 4px solid var(--sun); border-radius: 32px;
+    display: grid; place-items: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .tapbig:active { transform: scale(0.985); }
+  .tapbig.full { background: var(--green-soft); border-color: var(--green); color: var(--green); cursor: default; }
+  .tapletter { font-family: var(--letter); font-weight: 700; font-size: clamp(9rem, 45vw, 14rem); line-height: 1.4; }
+  .tapicon { position: absolute; bottom: 14px; inset-inline-end: 18px; font-size: 2.6rem; }
+  .p-actions { display: flex; justify-content: center; gap: 22px; }
+  .round {
+    font: inherit; font-size: 2rem; width: 80px; height: 80px; border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--line); background: var(--surface); color: var(--ink);
+    display: grid; place-items: center; padding: 0;
+  }
+  .round:disabled { opacity: 0.4; cursor: default; }
+  .round.sound { background: var(--sun); border-color: var(--sun); color: #2a1f00; }
+  .round.sound.playing { background: var(--green); border-color: var(--green); }
+  .round.on { background: var(--sun-soft); border-color: var(--sun); }
+  .slate-sound { position: absolute; bottom: 12px; inset-inline-end: 12px; width: 64px; height: 64px; font-size: 1.6rem; }
+  #qSound { width: 68px; height: 68px; font-size: 1.7rem; }
+  .center { text-align: center; justify-content: center; }
+  .nextl { font-family: var(--letter); font-size: 2.2rem; min-height: 72px; }
 
   @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
 </style>
@@ -183,17 +285,59 @@
       <p class="sub">ب ساناهی فێری ٣٤ پیتێن ئەلفوبێیا کوردی ببە</p>
     </div>
     <div class="tabs" role="tablist" aria-label="بەش">
-      <button class="tab" role="tab" id="tab-learn" aria-selected="true" aria-controls="view-learn">فێربوون</button>
+      <button class="tab" role="tab" id="tab-today" aria-selected="true" aria-controls="view-today">ئەڤرۆ</button>
+      <button class="tab" role="tab" id="tab-learn" aria-selected="false" aria-controls="view-learn">هەمی پیت</button>
       <button class="tab" role="tab" id="tab-quiz" aria-selected="false" aria-controls="view-quiz">تاقیکرن</button>
     </div>
   </header>
 
-  <main id="view-learn" role="tabpanel" aria-labelledby="tab-learn" style="display:grid;gap:24px">
+  <main id="view-today" role="tabpanel" aria-labelledby="tab-today" class="today">
+    <section class="dayhead">
+      <div class="daybox" aria-hidden="true"><span>📅</span><b id="dayNum"></b></div>
+      <div class="daymeta">
+        <p class="daytitle" id="dayTitle"></p>
+        <span class="bar wide"><i id="dayBar" style="width:0"></i></span>
+        <p class="hint" id="dayText"></p>
+      </div>
+    </section>
+    <section class="donecard" id="doneCard" hidden>
+      <span class="done-ico" id="doneIco" aria-hidden="true">✓</span>
+      <div><p class="done-title" id="doneTitle"></p><p class="hint" id="doneText"></p></div>
+    </section>
+    <section id="newSec" class="sec-wrap">
+      <h2 class="sec"><span aria-hidden="true">✨</span> پیتێن نوو · هەر ئێک ١٠٠ جار</h2>
+      <div class="tiles big" id="newTiles"></div>
+    </section>
+    <section id="revSec" class="sec-wrap">
+      <h2 class="sec"><span aria-hidden="true">🔁</span> دووبارەکرن · هەر ئێک ٢٥ جار</h2>
+      <div class="tiles" id="revTiles"></div>
+    </section>
+    <details class="planbox" id="planBox">
+      <summary>پلانا هەمی ڕۆژان (بۆ وی کەسێ هاریکاریێ دکەت)</summary>
+      <ul class="rules">
+        <li>هەر ڕۆژ ٤ پیتێن نوو. هەر پیتەکێ ١٠٠ جاران بێژە یان بنڤیسە.</li>
+        <li>هەمی پیتێن ڕۆژێن بەری نوکە، هەر ئێک ٢٥ جاران دووبارە بکە.</li>
+        <li>دەمێ پیتەک ب باشی هاتە زانین، ⭐ لێ بدە. ئیدی ناچیتە د دووبارەکرنێ دا.</li>
+        <li>ل 🔊 بدە: پەیڤا نموونە دهێتە گۆتن. گوهـ ل دەستپێکا وێ بدە و پاشان پیتێ ب دەنگێ خۆ بێژە.</li>
+        <li>هەر جارەکێ ل سەر پیتا مەزن بدە. ئەلقە پڕ دبیت.</li>
+        <li>ڕۆژا دی سوبەهی ڤەدبیت، ب مەرجەکێ کارێ ئەڤرۆ تەمام ببیت.</li>
+      </ul>
+      <div class="plan-table" id="planTable"></div>
+      <div class="dayjump">
+        <label for="daySelect">بچە ڕۆژا:</label>
+        <select id="daySelect"></select>
+        <button class="btn" id="dayGo">بچە</button>
+      </div>
+    </details>
+  </main>
+
+  <main id="view-learn" role="tabpanel" aria-labelledby="tab-learn" style="display:grid;gap:24px" hidden>
     <section class="slate" aria-live="polite">
       <div class="bigbox">
         <span class="count" id="count"></span>
         <span class="done-badge" id="doneBadge" hidden>فێربووی ✓</span>
         <span class="big" id="big"></span>
+        <button class="round sound slate-sound" id="sSound" aria-label="گوهـ بدە">🔊</button>
       </div>
       <div class="info">
         <div>
@@ -232,6 +376,7 @@
       <div class="q-top"><span id="qNum"></span><span id="qScore"></span></div>
       <div class="q-emoji" id="qEmoji" aria-hidden="true"></div>
       <div class="q-word" id="qWord"></div>
+      <button class="round sound" id="qSound" aria-label="گوهـ بدە">🔊</button>
       <p class="q-ask">ئەڤ پەیڤە ب کیژ پیتێ دەست پێدکەت؟</p>
       <div class="options" id="options"></div>
       <p class="feedback" id="feedback" aria-live="polite"></p>
@@ -239,48 +384,78 @@
     </section>
   </main>
 
-  <footer>چ دەنگ و موزیک د ناڤ ڤی مالپەری دا نینن.</footer>
+  <section class="practice" id="practice" hidden aria-label="دووبارەکرنا پیتێ">
+    <div class="p-inner">
+      <div class="p-top">
+        <button class="iconbtn" id="pBack" aria-label="زڤڕین">→</button>
+        <span class="ring big" id="pRing"><span></span></span>
+        <b class="p-count" id="pCount"></b>
+      </div>
+      <button class="tapbig" id="pTap" aria-label="جارەکێ زێدە بکە">
+        <span class="tapletter" id="pLetter"></span>
+        <span class="tapicon" id="pIcon" aria-hidden="true">👆</span>
+      </button>
+      <div class="p-actions">
+        <button class="round sound" id="pSound" aria-label="گوهـ بدە">🔊</button>
+        <button class="round" id="pUndo" aria-label="جارەکێ کێم بکە">−</button>
+        <button class="round" id="pStar" aria-label="ئەڤ پیتە ب باشی دزانم" hidden>☆</button>
+      </div>
+      <p class="hint center" id="pStarHint" hidden>⭐ = ئەڤ پیتە ب باشی دزانم، ئیدی د دووبارەکرنێ دا نینە</p>
+      <div class="example center"><span class="emoji" id="pEmoji" aria-hidden="true"></span><span class="word" id="pWord"></span></div>
+      <button class="btn primary nextl" id="pNext" hidden></button>
+    </div>
+  </section>
+
+  <footer>
+    <p>چ موزیک د ناڤ ڤی مالپەری دا نینە. تەنێ دەنگێ پەیڤان هەیە.</p>
+    <details class="credits"><summary>دەنگ ژ کیڤە هاتینە</summary>
+      <p>Recordings: Wikimedia Commons / Lingua Libre — native Kurmanji speakers. Licence per file below.</p>
+      <ul id="creditList"></ul>
+    </details>
+  </footer>
 </div>
 
 <script>
 (function () {
   // [letter, latin, example word, picture, joins to the next letter?]
   var L = [
-    ["ئ", "ʼ",  "ئاگر",   "🔥", true],
-    ["ا", "a",  "مار",    "🐍", false],
-    ["ب", "b",  "بەرخ",   "🐑", true],
-    ["پ", "p",  "پشیک",   "🐱", true],
-    ["ت", "t",  "تری",    "🍇", true],
-    ["ج", "c",  "جل",     "👕", true],
-    ["چ", "ç",  "چاڤ",    "👁️", true],
-    ["ح", "ḧ",  "حەفت",   "7️⃣", true],
-    ["خ", "x",  "خانی",   "🏠", true],
-    ["د", "d",  "دار",    "🌳", false],
-    ["ر", "r",  "باران",  "🌧️", false],
-    ["ڕ", "rr", "ڕێ",     "🛣️", false],
-    ["ز", "z",  "زمان",   "👅", false],
-    ["ژ", "j",  "ژن",     "👩", false],
-    ["س", "s",  "سێڤ",    "🍎", true],
-    ["ش", "ş",  "شێر",    "🦁", true],
-    ["ع", "‛",  "عەرد",   "🌍", true],
-    ["غ", "ẍ",  "غەزال",  "🦌", true],
-    ["ف", "f",  "فیل",    "🐘", true],
-    ["ڤ", "v",  "ئاڤ",    "💧", true],
-    ["ق", "q",  "قەلەم",  "✏️", true],
-    ["ک", "k",  "کتێب",   "📖", true],
-    ["گ", "g",  "گول",    "🌹", true],
-    ["ل", "l",  "لێڤ",    "👄", true],
+    ["ئ", "ʼ", "ئاگر", "🔥", true],
+    ["ا", "a", "دار", "🌳", false],
+    ["ب", "b", "بەرخ", "🐑", true],
+    ["پ", "p", "پیڤاز", "🧅", true],
+    ["ت", "t", "تیر", "🏹", true],
+    ["ج", "c", "جل", "👕", true],
+    ["چ", "ç", "چاڤ", "👁️", true],
+    ["ح", "ḧ", "حەفت", "7️⃣", true],
+    ["خ", "x", "خانی", "🏠", true],
+    ["د", "d", "دەست", "✋", false],
+    ["ر", "r", "باران", "🌧️", false],
+    ["ڕ", "rr", "ڕێ", "🛣️", false],
+    ["ز", "z", "زمان", "👅", false],
+    ["ژ", "j", "ژن", "👩", false],
+    ["س", "s", "سێڤ", "🍎", true],
+    ["ش", "ş", "شێر", "🦁", true],
+    ["ع", "‛", "عەرد", "🌍", true],
+    ["غ", "ẍ", "غەریب", "🧳", true],
+    ["ف", "f", "فیل", "🐘", true],
+    ["ڤ", "v", "ئاڤ", "💧", true],
+    ["ق", "q", "قاز", "🪿", true],
+    ["ک", "k", "کتێب", "📖", true],
+    ["گ", "g", "گول", "🌹", true],
+    ["ل", "l", "لێڤ", "👄", true],
     ["ڵ", "ll", "باڵندە", "🐦", true],
-    ["م", "m",  "ماسی",   "🐟", true],
-    ["ن", "n",  "نان",    "🍞", true],
-    ["و", "w",  "ورچ",    "🐻", false],
-    ["وو", "û", "دوو",    "2️⃣", false],
-    ["ۆ", "o",  "تۆپ",    "⚽", false],
-    ["ه", "h",  "هەسپ",   "🐎", true],
-    ["ە", "e",  "بەفر",   "❄️", false],
+    ["م", "m", "ماسی", "🐟", true],
+    ["ن", "n", "نان", "🍞", true],
+    ["و", "w", "وێنە", "🖼️", false],
+    ["وو", "û", "دوو", "2️⃣", false],
+    ["ۆ", "o", "شۆر", "🧂", false],
+    ["ه", "h", "هەسپ", "🐎", true],
+    ["ە", "e", "بەفر", "❄️", false],
     ["ی", "y / î", "یەک", "1️⃣", true],
-    ["ێ", "ê",  "سێ",     "3️⃣", true]
+    ["ێ", "ê", "سێ", "3️⃣", true]
   ];
+  // Example-word recordings: [word, speaker, licence, source page] (Wikimedia Commons / Lingua Libre).
+  var CREDITS = [["agir", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-agir.wav"], ["dar", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-dar.wav"], ["berx", "Dildadil", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36368_(kur)-Dildadil-berx.wav"], ["pîvaz", "Mihemed Qers", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36368_(kur)-Mihemed_Qers-p%C3%AEvaz.wav"], ["tîr", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-t%C3%AEr.wav"], ["cil", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-cil.wav"], ["çav", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-%C3%A7av.wav"], ["heft", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-heft.wav"], ["xanî", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-xan%C3%AE.wav"], ["dest", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-dest.wav"], ["baran", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-baran.wav"], ["rê", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-r%C3%AA.wav"], ["ziman", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-ziman.wav"], ["jin", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-jin.wav"], ["sêv", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-s%C3%AAv.wav"], ["şêr", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-%C5%9F%C3%AAr.wav"], ["erd", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-erd.wav"], ["xerîb", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-xer%C3%AEb.wav"], ["fîl", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-f%C3%AEl.wav"], ["av", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-av.wav"], ["qaz", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-qaz.wav"], ["kitêb", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-kit%C3%AAb.wav"], ["gul", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-gul.wav"], ["lêv", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-l%C3%AAv.wav"], ["balinde", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-balinde.wav"], ["masî", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-mas%C3%AE.wav"], ["nan", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-nan.wav"], ["wêne", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-w%C3%AAne.wav"], ["du", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-du.wav"], ["şor", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-%C5%9For.wav"], ["hesp", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-hesp.wav"], ["berf", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-berf.wav"], ["yek", "Key Mîrza", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-yek.wav"], ["sê", "Ebulfîda", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-s%C3%AA.wav"]];
   // Letters that look alike — used as tricky choices in the quiz.
   var LOOKALIKE = ["ب پ ت", "ج چ ح خ", "د", "ر ڕ ز ژ", "س ش", "ع غ", "ف ڤ ق", "ک گ", "ل ڵ", "و ۆ وو", "ی ێ", "ه ە"];
   var T = "ـ";
@@ -418,25 +593,192 @@
   function score() { $("qScore").textContent = "دروست ژ جارا ئێکێ: " + kd(right) + " ژ " + kd(asked); }
   $("qNext").addEventListener("click", ask);
 
-  // ---------- Tabs & keys ----------
-  function tab(name) {
-    var learn = name === "learn";
-    $("tab-learn").setAttribute("aria-selected", String(learn));
-    $("tab-quiz").setAttribute("aria-selected", String(!learn));
-    $("view-learn").hidden = !learn;
-    $("view-quiz").hidden = learn;
-    if (!learn && qi < 0) ask();
+  // ---------- Sound ----------
+  // Each letter has its example word, said by a native Kurmanji speaker.
+  var audio = null, playingBtn = null;
+  function stopMark() { if (playingBtn) playingBtn.classList.remove("playing"); playingBtn = null; }
+  function playSound(i, btn) {
+    try {
+      if (!audio) {
+        audio = new Audio();
+        audio.addEventListener("ended", stopMark);
+        audio.addEventListener("error", stopMark);
+      }
+      audio.pause();
+      stopMark();
+      audio.src = "sounds/l" + (i < 10 ? "0" : "") + i + ".mp3";
+      playingBtn = btn || null;
+      if (playingBtn) playingBtn.classList.add("playing");
+      var pr = audio.play();
+      if (pr && pr.catch) pr.catch(stopMark);
+    } catch (e) { stopMark(); }
   }
-  $("tab-learn").addEventListener("click", function () { tab("learn"); });
-  $("tab-quiz").addEventListener("click", function () { tab("quiz"); });
+  $("sSound").addEventListener("click", function () { playSound(cur, this); });
+  $("qSound").addEventListener("click", function () { if (qi >= 0) playSound(qi, this); });
+
+  // ---------- Daily plan ----------
+  // 4 new letters a day x 100 times; every earlier letter x 25 until starred as known.
+  var NEW_PER_DAY = 4, NEW_REPS = 100, REVIEW_REPS = 25;
+  var LETTER_DAYS = Math.ceil(L.length / NEW_PER_DAY);
+  function dateKey(d) { return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+  function newOn(day) { var a = []; for (var i = (day - 1) * NEW_PER_DAY; i < Math.min(day * NEW_PER_DAY, L.length); i++) a.push(i); return a; }
+  function before(day) { var a = []; for (var i = 0; i < Math.min((day - 1) * NEW_PER_DAY, L.length); i++) a.push(i); return a; }
+
+  var plan = store.get("pk-plan", null);
+  if (!plan || typeof plan.day !== "number" || plan.day < 1) plan = { day: 1, started: dateKey(new Date()), counts: {}, known: [] };
+  if (!plan.counts || typeof plan.counts !== "object") plan.counts = {};
+  if (!Array.isArray(plan.known)) plan.known = [];
+  function savePlan() { store.set("pk-plan", plan); }
+
+  function todayNew() { return newOn(plan.day); }
+  function todayReview() { return before(plan.day).filter(function (i) { return plan.known.indexOf(i) < 0; }); }
+  function todayAll() { return todayNew().concat(todayReview()); }
+  function target(i) { if (todayNew().indexOf(i) > -1) return NEW_REPS; if (todayReview().indexOf(i) > -1) return REVIEW_REPS; return 0; }
+  function count(i) { return plan.counts[i] || 0; }
+  function isDone(i) { var t = target(i); return t > 0 && count(i) >= t; }
+  function todayDone() { return todayAll().every(isDone); }
+  function addCount(i, by) {
+    var t = target(i); if (!t) return;
+    plan.counts[i] = Math.max(0, Math.min(t, count(i) + by));
+    savePlan();
+  }
+  // The next day opens on the next calendar day, once today's work is done.
+  function checkNewDay() {
+    var today = dateKey(new Date());
+    if (today === plan.started || !todayDone()) return;
+    if (plan.day > LETTER_DAYS && todayReview().length === 0) return;
+    plan.day++; plan.started = today; plan.counts = {}; savePlan();
+  }
+  function setDay(d) { plan.day = d; plan.started = dateKey(new Date()); plan.counts = {}; savePlan(); }
+
+  function ringHTML(c, t, big, id) {
+    var full = t > 0 && c >= t;
+    return '<span' + (id ? ' id="' + id + '"' : "") + ' class="ring' + (big ? " big" : "") + (full ? " full" : "") +
+      '" style="--p:' + (t ? Math.min(100, c / t * 100) : 0) + '"><span>' + (full ? "✓" : kd(c)) + "</span></span>";
+  }
+
+  function tiles(box, list) {
+    box.innerHTML = list.map(function (i) {
+      return '<button class="tile' + (isDone(i) ? " done" : "") + '" data-i="' + i + '" aria-label="پیتا ' + L[i][0] + '"><b>' +
+        L[i][0] + "</b>" + ringHTML(count(i), target(i), false) + "</button>";
+    }).join("");
+  }
+
+  function renderToday() {
+    checkNewDay();
+    var all = todayAll(), done = 0, total = 0;
+    all.forEach(function (i) { var t = target(i); total += t; done += Math.min(count(i), t); });
+    var onlyReview = plan.day > LETTER_DAYS;
+    $("dayNum").textContent = kd(plan.day);
+    $("dayTitle").textContent = onlyReview ? "ڕۆژا " + kd(plan.day) + " · تەنێ دووبارەکرن" : "ڕۆژا " + kd(plan.day) + " ژ " + kd(LETTER_DAYS);
+    $("dayBar").style.width = (total ? done / total * 100 : 100) + "%";
+    $("dayText").textContent = kd(done) + " ژ " + kd(total) + " جاران";
+
+    var allKnown = onlyReview && todayReview().length === 0;
+    $("doneCard").hidden = !(allKnown || todayDone());
+    if (allKnown) {
+      $("doneIco").textContent = "🏆"; $("doneTitle").textContent = "هەمی پیت ب باشی دزانی!";
+      $("doneText").textContent = "پلانا پیتان ب دوماهی هات. پاشێ دەست ب برگەیان بکە.";
+    } else {
+      $("doneIco").textContent = "✓"; $("doneTitle").textContent = "ئەڤرۆ تەمام بوو";
+      $("doneText").textContent = onlyReview ? "سوبەهی دووبارەکرن بەردەوام دبیت." : "سوبەهی پیتێن نوو دێ ڤەبن.";
+    }
+    tiles($("newTiles"), todayNew()); $("newSec").hidden = todayNew().length === 0;
+    tiles($("revTiles"), todayReview()); $("revSec").hidden = todayReview().length === 0;
+
+    var html = "";
+    for (var d = 1; d <= LETTER_DAYS; d++) {
+      html += '<div class="prow' + (d === plan.day ? " now" : "") + '"><span>ڕۆژا ' + kd(d) + '</span><span class="pl">' +
+        newOn(d).map(function (i) { return L[i][0]; }).join(" ") + '</span><span class="pr">🔁 ' + kd(before(d).length) + "</span></div>";
+    }
+    $("planTable").innerHTML = html;
+    var opts = "";
+    for (var k = 1; k <= LETTER_DAYS + 1; k++) opts += '<option value="' + k + '"' + (k === plan.day ? " selected" : "") + ">" + kd(k) + "</option>";
+    $("daySelect").innerHTML = opts;
+  }
+
+  function onTile(e) { var b = e.target.closest(".tile"); if (b) openPractice(+b.getAttribute("data-i")); }
+  $("newTiles").addEventListener("click", onTile);
+  $("revTiles").addEventListener("click", onTile);
+  $("dayGo").addEventListener("click", function () { setDay(+$("daySelect").value); renderToday(); });
+
+  // ---------- Practice ----------
+  var pi = -1;
+  function openPractice(i) {
+    pi = i; $("practice").hidden = false; document.body.style.overflow = "hidden";
+    $("practice").scrollTop = 0; renderPractice(); $("pTap").focus();
+  }
+  function closePractice() { $("practice").hidden = true; document.body.style.overflow = ""; pi = -1; renderToday(); }
+  function nextUnfinished() {
+    var all = todayAll(), at = all.indexOf(pi);
+    for (var k = 1; k <= all.length; k++) { var j = all[(at + k) % all.length]; if (j !== pi && !isDone(j)) return j; }
+    return -1;
+  }
+  function renderPractice() {
+    var r = L[pi], c = count(pi), t = target(pi), full = isDone(pi);
+    var review = todayReview().indexOf(pi) > -1, known = plan.known.indexOf(pi) > -1;
+    $("pRing").outerHTML = ringHTML(c, t, true, "pRing");
+    $("pCount").textContent = kd(c) + " / " + kd(t);
+    $("pCount").classList.toggle("full", full);
+    $("pLetter").textContent = r[0];
+    $("pTap").classList.toggle("full", full);
+    $("pIcon").textContent = full ? "✅" : "👆";
+    $("pUndo").disabled = c === 0;
+    $("pStar").hidden = !review && !known; $("pStarHint").hidden = $("pStar").hidden;
+    $("pStar").textContent = known ? "⭐" : "☆"; $("pStar").classList.toggle("on", known);
+    $("pEmoji").textContent = r[3];
+    $("pWord").innerHTML = markWord(r[2], r[0]);
+    var nx = full ? nextUnfinished() : -1;
+    $("pNext").hidden = nx < 0;
+    if (nx > -1) { $("pNext").textContent = "← " + L[nx][0]; $("pNext").setAttribute("data-i", nx); }
+  }
+  $("pTap").addEventListener("click", function () {
+    if (pi < 0 || isDone(pi)) return;
+    addCount(pi, 1);
+    try { if (navigator.vibrate) navigator.vibrate(isDone(pi) ? 200 : 15); } catch (e) {}
+    renderPractice();
+  });
+  $("pUndo").addEventListener("click", function () { addCount(pi, -1); renderPractice(); });
+  $("pStar").addEventListener("click", function () {
+    var at = plan.known.indexOf(pi);
+    if (at > -1) plan.known.splice(at, 1); else plan.known.push(pi);
+    savePlan(); renderPractice();
+  });
+  $("pSound").addEventListener("click", function () { playSound(pi, this); });
+  $("pBack").addEventListener("click", closePractice);
+  $("pNext").addEventListener("click", function () { openPractice(+this.getAttribute("data-i")); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && $("practice").hidden) renderToday(); });
+
+  // ---------- Credits ----------
+  $("creditList").innerHTML = CREDITS.map(function (c, i) {
+    return "<li>" + L[i][0] + " · " + esc(L[i][2]) + ' — <a href="' + esc(c[3]) + '" target="_blank" rel="noopener">' +
+      esc(c[0]) + "</a> · " + esc(c[1]) + " · " + esc(c[2]) + "</li>";
+  }).join("");
+
+  // ---------- Tabs & keys ----------
+  var TABS = ["today", "learn", "quiz"];
+  function tab(name) {
+    TABS.forEach(function (t) {
+      $("tab-" + t).setAttribute("aria-selected", String(t === name));
+      $("view-" + t).hidden = t !== name;
+    });
+    if (name === "quiz" && qi < 0) ask();
+    if (name === "today") renderToday();
+  }
+  TABS.forEach(function (t) { $("tab-" + t).addEventListener("click", function () { tab(t); }); });
 
   document.addEventListener("keydown", function (e) {
+    if (!$("practice").hidden) {
+      if (e.key === "Escape") closePractice();
+      return;
+    }
     if ($("view-learn").hidden) return;
     if (e.key === "ArrowLeft") { show(cur + 1); e.preventDefault(); }
     if (e.key === "ArrowRight") { show(cur - 1); e.preventDefault(); }
   });
 
   show(cur);
+  renderToday();
 })();
 </script>
 </body>
