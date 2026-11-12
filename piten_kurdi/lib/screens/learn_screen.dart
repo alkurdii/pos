@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../letters.dart';
 import '../progress.dart';
+import '../sounds.dart';
 import '../theme.dart';
 import '../widgets/sound.dart';
 
@@ -121,13 +122,18 @@ class _Slate extends StatelessWidget {
                   controller: pages,
                   itemCount: count,
                   onPageChanged: (i) => progress.current = i,
-                  itemBuilder: (context, i) => Center(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        kurdishLetters[i].char,
-                        key: ValueKey('big-$i'),
-                        style: letterStyle(190, p.green),
+                  // Tapping the letter says the letter.
+                  itemBuilder: (context, i) => GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => LetterSounds.play(i),
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          kurdishLetters[i].char,
+                          key: ValueKey('big-$i'),
+                          style: letterStyle(190, p.green),
+                        ),
                       ),
                     ),
                   ),
@@ -167,7 +173,7 @@ class _Slate extends StatelessWidget {
             children: [
               ExcludeSemantics(child: Text(letter.picture, style: const TextStyle(fontSize: 56))),
               const SizedBox(width: 16),
-              Flexible(child: HighlightedWord(letter: letter, size: 52)),
+              Flexible(child: HighlightedWord(letter: letter, size: 52, tapToHear: true)),
               const SizedBox(width: 10),
               PlaySoundButton(letter: letter, size: 48, word: true),
             ],
@@ -218,10 +224,12 @@ class _Slate extends StatelessWidget {
 }
 
 /// The example word, with the letter being learned in the sun colour.
+/// With [tapToHear], tapping the word says the word.
 class HighlightedWord extends StatelessWidget {
-  const HighlightedWord({super.key, required this.letter, required this.size});
+  const HighlightedWord({super.key, required this.letter, required this.size, this.tapToHear = false});
   final KurdishLetter letter;
   final double size;
+  final bool tapToHear;
 
   @override
   Widget build(BuildContext context) {
@@ -236,9 +244,21 @@ class HighlightedWord extends StatelessWidget {
             TextSpan(text: letter.char, style: TextStyle(color: p.sun)),
             TextSpan(text: w.substring(at + letter.char.length)),
           ];
-    return Text.rich(
+    final text = Text.rich(
       TextSpan(style: base, children: spans),
       semanticsLabel: w,
+    );
+    if (!tapToHear) return text;
+    return InkWell(
+      key: ValueKey('hear-word-${letter.char}'),
+      enableFeedback: false,
+      borderRadius: BorderRadius.circular(14),
+      onTap: () => LetterSounds.play(kurdishLetters.indexOf(letter), word: true),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: p.sun, width: 3))),
+        child: text,
+      ),
     );
   }
 }
@@ -392,7 +412,10 @@ class _LetterGrid extends StatelessWidget {
           child: InkWell(
             key: ValueKey('cell-$i'),
             enableFeedback: false,
-            onTap: () => onTap(i),
+            onTap: () {
+              onTap(i);
+              LetterSounds.play(i);
+            },
             child: Stack(
               children: [
                 Center(

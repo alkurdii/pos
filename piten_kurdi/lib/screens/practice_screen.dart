@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../app_scope.dart';
 import '../letters.dart';
+import '../sounds.dart';
 import '../theme.dart';
 import '../widgets/ring.dart';
 import '../widgets/sound.dart';
@@ -75,13 +76,14 @@ class PracticeScreen extends StatelessWidget {
                           child: InkWell(
                             key: const ValueKey('tap-count'),
                             enableFeedback: false,
-                            onTap: done
-                                ? null
-                                : () {
-                                    HapticFeedback.lightImpact();
-                                    plan.add(letterIndex);
-                                    if (plan.isDone(letterIndex)) HapticFeedback.heavyImpact();
-                                  },
+                            // Each tap says the letter and counts one time.
+                            onTap: () {
+                              LetterSounds.play(letterIndex);
+                              if (done) return;
+                              HapticFeedback.lightImpact();
+                              plan.add(letterIndex);
+                              if (plan.isDone(letterIndex)) HapticFeedback.heavyImpact();
+                            },
                             child: SizedBox(
                               height: 320,
                               child: Stack(
@@ -142,7 +144,7 @@ class PracticeScreen extends StatelessWidget {
                         children: [
                           ExcludeSemantics(child: Text(letter.picture, style: const TextStyle(fontSize: 48))),
                           const SizedBox(width: 14),
-                          Flexible(child: HighlightedWord(letter: letter, size: 44)),
+                          Flexible(child: HighlightedWord(letter: letter, size: 44, tapToHear: true)),
                           const SizedBox(width: 10),
                           PlaySoundButton(letter: letter, size: 48, word: true),
                         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../letters.dart';
 import '../quiz.dart';
+import '../sounds.dart';
 import '../theme.dart';
 import '../widgets/sound.dart';
 
@@ -69,7 +70,12 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
               const SizedBox(height: 8),
               ExcludeSemantics(child: Text(_q.letter.picture, style: const TextStyle(fontSize: 96))),
-              Text(_q.letter.word, key: const ValueKey('quiz-word'), style: letterStyle(64, p.ink)),
+              InkWell(
+                enableFeedback: false,
+                borderRadius: BorderRadius.circular(16),
+                onTap: () => LetterSounds.play(kurdishLetters.indexOf(_q.letter), word: true),
+                child: Text(_q.letter.word, key: const ValueKey('quiz-word'), style: letterStyle(64, p.ink)),
+              ),
               const SizedBox(height: 4),
               const Text(
                 'ئەڤ پەیڤە ب کیژ پیتێ دەست پێدکەت؟',

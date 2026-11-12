@@ -100,6 +100,15 @@
   .emoji { font-size: clamp(3rem, 9vw, 4rem); line-height: 1; }
   .word { font-family: var(--letter); font-size: clamp(2.6rem, 8vw, 3.6rem); font-weight: 700; line-height: 1.5; }
   .word mark { background: none; color: var(--sun); }
+  /* Letter and word are buttons: their font comes from .big / .word / .q-word. */
+  .tapword, .tapletter-btn {
+    background: none; border: 0; padding: 0 6px; cursor: pointer;
+    border-radius: 14px; -webkit-tap-highlight-color: transparent;
+  }
+  .tapword { color: inherit; }
+  .tapletter-btn { color: var(--green); }
+  .tapword { border-bottom: 3px dotted var(--sun); border-radius: 0; }
+  .tapword:active, .tapletter-btn:active { background: var(--sun-soft); }
 
   .forms { display: flex; flex-wrap: wrap; gap: 10px; }
   .form {
@@ -270,6 +279,8 @@
   .round.on { background: var(--sun-soft); border-color: var(--sun); }
   .slate-sound { position: absolute; bottom: 12px; inset-inline-end: 12px; width: 64px; height: 64px; font-size: 1.6rem; }
   #qSound { width: 68px; height: 68px; font-size: 1.7rem; }
+  .round.small { width: 48px; height: 48px; font-size: 1.2rem; flex: none; background: var(--surface); border-color: var(--sun); color: var(--ink); }
+  .round.small.playing { background: var(--green-soft); border-color: var(--green); }
   .center { text-align: center; justify-content: center; }
   .nextl { font-family: var(--letter); font-size: 2.2rem; min-height: 72px; }
 
@@ -318,8 +329,8 @@
         <li>هەر ڕۆژ ٤ پیتێن نوو. هەر پیتەکێ ١٠٠ جاران بێژە یان بنڤیسە.</li>
         <li>هەمی پیتێن ڕۆژێن بەری نوکە، هەر ئێک ٢٥ جاران دووبارە بکە.</li>
         <li>دەمێ پیتەک ب باشی هاتە زانین، ⭐ لێ بدە. ئیدی ناچیتە د دووبارەکرنێ دا.</li>
-        <li>ل 🔊 بدە: پەیڤا نموونە دهێتە گۆتن. گوهـ ل دەستپێکا وێ بدە و پاشان پیتێ ب دەنگێ خۆ بێژە.</li>
-        <li>هەر جارەکێ ل سەر پیتا مەزن بدە. ئەلقە پڕ دبیت.</li>
+        <li>ل سەر پیتێ بدە: دەنگێ پیتێ دهێت. ل سەر پەیڤێ بدە: دەنگێ پەیڤێ دهێت.</li>
+        <li>هەر جارەکێ ل سەر پیتا مەزن بدە: دەنگێ وێ دهێت، تو ژی بێژە، و ئەلقە پڕ دبیت.</li>
         <li>ڕۆژا دی سوبەهی ڤەدبیت، ب مەرجەکێ کارێ ئەڤرۆ تەمام ببیت.</li>
       </ul>
       <div class="plan-table" id="planTable"></div>
@@ -336,7 +347,7 @@
       <div class="bigbox">
         <span class="count" id="count"></span>
         <span class="done-badge" id="doneBadge" hidden>فێربووی ✓</span>
-        <span class="big" id="big"></span>
+        <button class="tapletter-btn big" id="big" aria-label="گوهـ بدە پیتێ"></button>
         <button class="round sound slate-sound" id="sSound" aria-label="گوهـ بدە">🔊</button>
       </div>
       <div class="info">
@@ -344,7 +355,8 @@
           <p class="label">نموونە</p>
           <div class="example">
             <span class="emoji" id="emoji" aria-hidden="true"></span>
-            <span class="word" id="word"></span>
+            <button class="tapword word" id="word" aria-label="گوهـ بدە پەیڤێ"></button>
+            <button class="round small" id="sWordSound" aria-label="گوهـ بدە پەیڤێ">🔊</button>
           </div>
         </div>
         <div>
@@ -375,7 +387,7 @@
     <section class="quiz">
       <div class="q-top"><span id="qNum"></span><span id="qScore"></span></div>
       <div class="q-emoji" id="qEmoji" aria-hidden="true"></div>
-      <div class="q-word" id="qWord"></div>
+      <button class="tapword q-word" id="qWord" aria-label="گوهـ بدە پەیڤێ"></button>
       <button class="round sound" id="qSound" aria-label="گوهـ بدە">🔊</button>
       <p class="q-ask">ئەڤ پەیڤە ب کیژ پیتێ دەست پێدکەت؟</p>
       <div class="options" id="options"></div>
@@ -401,7 +413,7 @@
         <button class="round" id="pStar" aria-label="ئەڤ پیتە ب باشی دزانم" hidden>☆</button>
       </div>
       <p class="hint center" id="pStarHint" hidden>⭐ = ئەڤ پیتە ب باشی دزانم، ئیدی د دووبارەکرنێ دا نینە</p>
-      <div class="example center"><span class="emoji" id="pEmoji" aria-hidden="true"></span><span class="word" id="pWord"></span></div>
+      <div class="example center"><span class="emoji" id="pEmoji" aria-hidden="true"></span><button class="tapword word" id="pWord" aria-label="گوهـ بدە پەیڤێ"></button><button class="round small" id="pWordSound" aria-label="گوهـ بدە پەیڤێ">🔊</button></div>
       <button class="btn primary nextl" id="pNext" hidden></button>
     </div>
   </section>
@@ -489,6 +501,7 @@
     b.innerHTML = "<b>" + row[0] + "</b>";
     b.addEventListener("click", function () {
       show(i);
+      playSound(i, null);
       var top = document.querySelector(".slate").getBoundingClientRect().top;
       if (top < 0) document.querySelector(".slate").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     });
@@ -597,7 +610,8 @@
   // Each letter has its example word, said by a native Kurmanji speaker.
   var audio = null, playingBtn = null;
   function stopMark() { if (playingBtn) playingBtn.classList.remove("playing"); playingBtn = null; }
-  function playSound(i, btn) {
+  // kind "word" plays the example word; otherwise the letter itself is said.
+  function playSound(i, btn, kind) {
     try {
       if (!audio) {
         audio = new Audio();
@@ -606,7 +620,7 @@
       }
       audio.pause();
       stopMark();
-      audio.src = "sounds/l" + (i < 10 ? "0" : "") + i + ".mp3";
+      audio.src = "sounds/" + (kind === "word" ? "l" : "n") + (i < 10 ? "0" : "") + i + ".mp3";
       playingBtn = btn || null;
       if (playingBtn) playingBtn.classList.add("playing");
       var pr = audio.play();
@@ -614,7 +628,11 @@
     } catch (e) { stopMark(); }
   }
   $("sSound").addEventListener("click", function () { playSound(cur, this); });
-  $("qSound").addEventListener("click", function () { if (qi >= 0) playSound(qi, this); });
+  $("qSound").addEventListener("click", function () { if (qi >= 0) playSound(qi, this, "word"); });
+  $("sWordSound").addEventListener("click", function () { playSound(cur, this, "word"); });
+  $("big").addEventListener("click", function () { playSound(cur, $("sSound")); });
+  $("word").addEventListener("click", function () { playSound(cur, $("sWordSound"), "word"); });
+  $("qWord").addEventListener("click", function () { if (qi >= 0) playSound(qi, $("qSound"), "word"); });
 
   // ---------- Daily plan ----------
   // 4 new letters a day x 100 times; every earlier letter x 25 until starred as known.
@@ -733,7 +751,9 @@
     if (nx > -1) { $("pNext").textContent = "← " + L[nx][0]; $("pNext").setAttribute("data-i", nx); }
   }
   $("pTap").addEventListener("click", function () {
-    if (pi < 0 || isDone(pi)) return;
+    if (pi < 0) return;
+    playSound(pi, $("pSound")); // tapping the letter says the letter
+    if (isDone(pi)) return;
     addCount(pi, 1);
     try { if (navigator.vibrate) navigator.vibrate(isDone(pi) ? 200 : 15); } catch (e) {}
     renderPractice();
@@ -745,6 +765,8 @@
     savePlan(); renderPractice();
   });
   $("pSound").addEventListener("click", function () { playSound(pi, this); });
+  $("pWordSound").addEventListener("click", function () { playSound(pi, this, "word"); });
+  $("pWord").addEventListener("click", function () { playSound(pi, $("pWordSound"), "word"); });
   $("pBack").addEventListener("click", closePractice);
   $("pNext").addEventListener("click", function () { openPractice(+this.getAttribute("data-i")); });
   document.addEventListener("visibilitychange", function () { if (!document.hidden && $("practice").hidden) renderToday(); });
