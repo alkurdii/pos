@@ -143,6 +143,8 @@ class PracticeScreen extends StatelessWidget {
                           ExcludeSemantics(child: Text(letter.picture, style: const TextStyle(fontSize: 48))),
                           const SizedBox(width: 14),
                           Flexible(child: HighlightedWord(letter: letter, size: 44)),
+                          const SizedBox(width: 10),
+                          PlaySoundButton(letter: letter, size: 48, word: true),
                         ],
                       ),
                       if (done && next != null) ...[

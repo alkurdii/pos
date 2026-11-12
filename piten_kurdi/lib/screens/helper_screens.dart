@@ -160,7 +160,7 @@ class _Rules extends StatelessWidget {
           rule(Icons.replay_rounded,
               'هەمی پیتێن ڕۆژێن بەری نوکە، هەر ئێک ${kurdishDigits(StudyPlan.reviewReps)} جاران دووبارە بکە.'),
           rule(Icons.star_rounded, 'دەمێ پیتەک ب باشی هاتە زانین، ⭐ لێ بدە. ئیدی ناچیتە د دووبارەکرنێ دا.'),
-          rule(Icons.volume_up_rounded, 'ل 🔊 بدە: پەیڤا نموونە دهێتە گۆتن. گوهـ ل دەستپێکا وێ بدە و پاشان پیتێ ب دەنگێ خۆ بێژە.'),
+          rule(Icons.volume_up_rounded, 'ل 🔊 یا مەزن بدە: پیت ب خۆ دهێتە گۆتن. پاشان ب دەنگێ خۆ بێژە. 🔊 یا بچووک پەیڤا نموونە دبێژیت.'),
           rule(Icons.touch_app_rounded, 'هەر جارەکێ ل سەر پیتا مەزن بدە. ئەلقە پڕ دبیت.'),
           rule(Icons.calendar_today_rounded,
               'ڕۆژا دی سوبەهی ڤەدبیت، ب مەرجەکێ کارێ ئەڤرۆ تەمام ببیت. ئەگەر تەمام نەبیت، سوبەهی ل سەر هەمان ڕۆژێ بەردەوام بە.'),

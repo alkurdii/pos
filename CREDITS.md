@@ -1,5 +1,48 @@
 # Sound credits
 
+## Letter sounds (`n00.mp3` … `n33.mp3`)
+
+The big 🔊 button says the letter itself.
+
+| Letter | Said | Source | Speaker | Licence |
+|---|---|---|---|---|
+| ئ | هەمزە | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ا | a | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-a.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ب | bê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-b%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| پ | pê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-p%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ت | tê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-t%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ج | جێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| چ | çê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-%C3%A7%C3%AA.wav) | Ebulfîda | CC BY 4.0 |
+| ح | حێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| خ | خێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| د | dê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-d%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ر | rê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-r%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ڕ | ڕێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ز | زێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ژ | jê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-j%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| س | sê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-s%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ش | şê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Ebulf%C3%AEda-%C5%9F%C3%AA.wav) | Ebulfîda | CC BY 4.0 |
+| ع | عەین | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| غ | غەین | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ف | فێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ڤ | vê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-v%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ق | قێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ک | kê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-k%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| گ | گێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| ل | lê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-l%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ڵ | ڵێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| م | mê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-m%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ن | نێ | Generated with [Meta MMS-TTS](https://huggingface.co/facebook/mms-tts-kmr-script_arabic) (Kurmanji, Arabic script) | — | Model CC BY-NC 4.0: non-commercial use |
+| و | wê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-w%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| وو | û | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-%C3%BB.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ۆ | o | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36368_(kur)-Pispor-o.wav) | Pispor | CC BY-SA 4.0 |
+| ه | hê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-h%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ە | e | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-e.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ی | yê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-y%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+| ێ | ê | [Lingua Libre](https://commons.wikimedia.org/wiki/File:LL-Q36163_(kmr)-Key_M%C3%AErza-%C3%AA.wav) | Key Mîrza | CC BY-SA 4.0 |
+
+## Example-word sounds (`l00.mp3` … `l33.mp3`)
+
 Each letter's sound is its example word, said by a native Kurmanji speaker.
 The recordings come from [Lingua Libre](https://lingualibre.org) on Wikimedia Commons.
 They were trimmed, volume-levelled and converted to MP3 for this project.

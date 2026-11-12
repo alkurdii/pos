@@ -116,7 +116,8 @@ void main() {
 
   test('every letter has a sound file and a credit', () {
     for (var i = 0; i < kurdishLetters.length; i++) {
-      expect(File('assets/${soundAsset(i)}').existsSync(), isTrue, reason: soundAsset(i));
+      expect(File('assets/${letterSoundAsset(i)}').existsSync(), isTrue, reason: letterSoundAsset(i));
+      expect(File('assets/${wordSoundAsset(i)}').existsSync(), isTrue, reason: wordSoundAsset(i));
     }
     expect(soundCredits.length, kurdishLetters.length);
   });

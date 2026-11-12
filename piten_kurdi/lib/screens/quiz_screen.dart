@@ -77,7 +77,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 10),
-              PlaySoundButton(key: ValueKey('quiz-sound-${_q.letter.char}'), letter: _q.letter, size: 64),
+              PlaySoundButton(key: ValueKey('quiz-sound-${_q.letter.char}'), letter: _q.letter, size: 64, word: true),
               const SizedBox(height: 12),
               LayoutBuilder(
                 builder: (context, box) {

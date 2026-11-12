@@ -5,9 +5,11 @@ import 'package:flutter/foundation.dart';
 /// "پیتێن كوردی / حروف الكردي / kurdish alphabet" by Helat Abdullah Sharafani.
 const String alphabetVideoUrl = 'https://www.youtube.com/watch?v=MvKsM_omhKs';
 
-/// Asset path (under `assets/`) of the recording for the letter at [index].
-/// Each recording is the letter's example word, said by a native Kurmanji speaker.
-String soundAsset(int index) => 'sounds/l${index.toString().padLeft(2, '0')}.mp3';
+/// Asset path (under `assets/`) of the letter itself being said (بێ، پێ، تێ …).
+String letterSoundAsset(int index) => 'sounds/n${index.toString().padLeft(2, '0')}.mp3';
+
+/// Asset path (under `assets/`) of the letter's example word (ئاگر، دار …).
+String wordSoundAsset(int index) => 'sounds/l${index.toString().padLeft(2, '0')}.mp3';
 
 /// Plays letter recordings, one at a time. Works without internet.
 class LetterSounds {
@@ -15,15 +17,18 @@ class LetterSounds {
 
   static AudioPlayer? _player;
 
-  /// The letter whose recording is playing, or null.
-  static final ValueNotifier<int?> playing = ValueNotifier(null);
+  /// What is playing: `n03` for the letter at 3, `l03` for its word, or null.
+  static final ValueNotifier<String?> playing = ValueNotifier(null);
 
-  static Future<void> play(int index) async {
+  static String key(int index, {bool word = false}) => '${word ? 'l' : 'n'}$index';
+
+  /// Says the letter at [index], or its example word when [word] is true.
+  static Future<void> play(int index, {bool word = false}) async {
     try {
       final player = _player ??= _create();
       await player.stop();
-      playing.value = index;
-      await player.play(AssetSource(soundAsset(index)));
+      playing.value = key(index, word: word);
+      await player.play(AssetSource(word ? wordSoundAsset(index) : letterSoundAsset(index)));
     } catch (_) {
       playing.value = null;
     }

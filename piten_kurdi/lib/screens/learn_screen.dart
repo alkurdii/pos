@@ -168,6 +168,8 @@ class _Slate extends StatelessWidget {
               ExcludeSemantics(child: Text(letter.picture, style: const TextStyle(fontSize: 56))),
               const SizedBox(width: 16),
               Flexible(child: HighlightedWord(letter: letter, size: 52)),
+              const SizedBox(width: 10),
+              PlaySoundButton(letter: letter, size: 48, word: true),
             ],
           ),
           const SizedBox(height: 14),
