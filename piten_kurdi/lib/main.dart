@@ -8,29 +8,25 @@ import 'screens/helper_screens.dart';
 import 'screens/learn_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/today_screen.dart';
-import 'sounds.dart';
 import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final progress = await Progress.load(kurdishLetters.length);
   final plan = await PlanState.load();
-  final sounds = await SoundBank.load();
-  runApp(PitenKurdiApp(progress: progress, plan: plan, sounds: sounds));
+  runApp(PitenKurdiApp(progress: progress, plan: plan));
 }
 
 class PitenKurdiApp extends StatelessWidget {
-  const PitenKurdiApp({super.key, required this.progress, required this.plan, required this.sounds});
+  const PitenKurdiApp({super.key, required this.progress, required this.plan});
   final Progress progress;
   final PlanState plan;
-  final SoundBank sounds;
 
   @override
   Widget build(BuildContext context) {
     return AppScope(
       progress: progress,
       plan: plan,
-      sounds: sounds,
       child: MaterialApp(
         title: 'پیتێن کوردی',
         debugShowCheckedModeBanner: false,

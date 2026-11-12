@@ -12,12 +12,11 @@ A Flutter app for learning the 34 letters of the Kurdish (Arabic-script) alphabe
   34 letters take 9 days; after that only review remains. The next day opens on the
   next calendar day once today's work is done. Built for an adult who cannot read yet:
   big letters, progress rings, icons, one tap = one repetition.
-- **Letter sounds from YouTube**: the 🔊 button plays the part of
-  [this video](https://www.youtube.com/watch?v=MvKsM_omhKs) (Helat Abdullah Sharafani)
-  where the letter is said, in an embedded YouTube player. The audio is not copied
-  into the app. Someone who can read marks each letter's place once, under
-  ⚙ → دەنگێن پیتان ژ یوتیوبێ: play the video and tap each letter as it is said.
-  The marks can be copied and built into `defaultSoundStarts` in `lib/sounds.dart`.
+- **Sounds**: the 🔊 button plays the letter's example word (ئاگر, دار, بەرخ …), said by a
+  native Kurmanji speaker. The recordings ship with the app, so they work without internet.
+  They come from Lingua Libre on Wikimedia Commons (CC BY / CC BY-SA). See `../CREDITS.md`.
+- The helper screen (⚙) opens the YouTube video
+  [پیتێن كوردی](https://www.youtube.com/watch?v=MvKsM_omhKs) by Helat Abdullah Sharafani.
 - No music.
 
 The interface is in Kurdish (Badini) and right to left.
@@ -35,4 +34,4 @@ flutter test
 
 `assets/fonts` holds Noto Naskh Arabic and Noto Sans Arabic from Google Fonts
 (SIL Open Font License 1.1), so the letters look right without an internet connection.
-Only the letter sounds need the internet.
+Only opening the YouTube video needs the internet.

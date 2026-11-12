@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:piten_kurdi/app_scope.dart';
@@ -6,6 +8,7 @@ import 'package:piten_kurdi/plan.dart';
 import 'package:piten_kurdi/progress.dart';
 import 'package:piten_kurdi/screens/practice_screen.dart';
 import 'package:piten_kurdi/screens/today_screen.dart';
+import 'package:piten_kurdi/sound_credits.dart';
 import 'package:piten_kurdi/sounds.dart';
 import 'package:piten_kurdi/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -111,35 +114,16 @@ void main() {
     });
   });
 
-  group('SoundBank', () {
-    test('a clip runs to the next marked letter, at most 4 seconds', () {
-      final s = SoundBank.inMemory({'ب': 10, 'پ': 12.5, 'ت': 30});
-      expect(s.clipFor('ب')!.end, 12.5);
-      expect(s.clipFor('پ')!.end, 16.5);
-      expect(s.clipFor('ت')!.end, 33);
-      expect(s.clipFor('ج'), isNull);
-    });
-
-    test('marks can be nudged, cleared and exported', () {
-      final s = SoundBank.inMemory()..mark('ب', 10.04);
-      expect(s.startOf('ب'), 10.0);
-      s.nudge('ب', 0.5);
-      expect(s.startOf('ب'), 10.5);
-      expect(s.exportText(), contains('ب = 10.5'));
-      s.clear('ب');
-      expect(s.has('ب'), isFalse);
-    });
-
-    test('clockText', () {
-      expect(clockText(75.3), '1:15.3');
-      expect(clockText(5), '0:05.0');
-    });
+  test('every letter has a sound file and a credit', () {
+    for (var i = 0; i < kurdishLetters.length; i++) {
+      expect(File('assets/${soundAsset(i)}').existsSync(), isTrue, reason: soundAsset(i));
+    }
+    expect(soundCredits.length, kurdishLetters.length);
   });
 
   Widget app(PlanState plan, Widget home) => AppScope(
         progress: Progress.inMemory(),
         plan: plan,
-        sounds: SoundBank.inMemory(),
         child: MaterialApp(
           theme: buildTheme(Palette.light, Brightness.light),
           home: Directionality(textDirection: TextDirection.rtl, child: Scaffold(body: home)),

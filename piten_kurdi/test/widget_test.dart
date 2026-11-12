@@ -7,15 +7,13 @@ import 'package:piten_kurdi/main.dart';
 import 'package:piten_kurdi/app_scope.dart';
 import 'package:piten_kurdi/plan.dart';
 import 'package:piten_kurdi/progress.dart';
-import 'package:piten_kurdi/sounds.dart';
 import 'package:piten_kurdi/quiz.dart';
 import 'package:piten_kurdi/screens/quiz_screen.dart';
 import 'package:piten_kurdi/theme.dart';
 
-Widget wrap(Widget child, {PlanState? plan, SoundBank? sounds}) => AppScope(
+Widget wrap(Widget child, {PlanState? plan}) => AppScope(
       progress: Progress.inMemory(),
       plan: plan ?? PlanState.inMemory(),
-      sounds: sounds ?? SoundBank.inMemory(),
       child: MaterialApp(
         theme: buildTheme(Palette.light, Brightness.light),
         home: Directionality(textDirection: TextDirection.rtl, child: Scaffold(body: child)),
@@ -97,7 +95,7 @@ void main() {
     addTearDown(tester.view.reset);
 
     final progress = Progress.inMemory();
-    await tester.pumpWidget(PitenKurdiApp(progress: progress, plan: PlanState.inMemory(), sounds: SoundBank.inMemory()));
+    await tester.pumpWidget(PitenKurdiApp(progress: progress, plan: PlanState.inMemory()));
     await tester.tap(find.text('هەمی پیت').first);
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('big-0')), findsOneWidget);
