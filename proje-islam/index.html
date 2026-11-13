@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پرۆژێ ئیسلام — دیزاینا نوی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="appShell" class="app-shell">
+    <!-- Sidebar (Desktop) -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">☽</div>
+        <div>
+          <h1>پرۆژێ ئیسلام</h1>
+          <span>دیزاینا ئارام و مۆدێرن</span>
+        </div>
+      </div>
+
+      <button class="profile-pill" id="openProfileBtn">
+        <div class="avatar">خ</div>
+        <div class="profile-meta">
+          <strong>خەلکێ گشتی</strong>
+          <small id="userRoleLabel">تالب عیلم • ★ ٠</small>
+        </div>
+        <span>‹</span>
+      </button>
+
+      <nav class="side-nav">
+        <button class="nav-item active" data-view="home"><span>⌂</span> سەرەکی</button>
+        <button class="nav-item" data-view="quran"><span>📖</span> قورئانا پیرۆز</button>
+        <button class="nav-item" data-view="lessons"><span>🎓</span> وانە و ئاست</button>
+        <button class="nav-item" data-view="teachers"><span>🎙️</span> مامۆستا</button>
+        <button class="nav-item" data-view="dhikr"><span>📿</span> زکر و دوعا</button>
+        <button class="nav-item" data-view="hadith"><span>❝</span> فەرموودە</button>
+        <button class="nav-item" data-view="prayer"><span>🕌</span> دەمێن بانگان</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="preview-toggle-btn" id="toggleMobilePreviewBtn">
+          <span>📱</span>
+          <span id="previewBtnText">دیمەنێ موبایلێ (بۆ ئەپی)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-title">
+          <span class="greeting-badge">🌙 شەڤ باش</span>
+          <h2 id="pageHeading">سەرەکی</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-wrap">
+            <span>⌕</span>
+            <input type="search" id="globalSearch" placeholder="ل بەشەکێ یان مامۆستایەکێ بگەڕێ..." />
+          </div>
+          <button class="icon-btn" id="mobilePreviewTopBtn" title="دیمەنێ موبایلێ">📱</button>
+          <button class="icon-btn" id="themeToggleBtn" title="گوهۆڕینا رەنگی">
+            <span id="themeIcon">☀️</span>
+          </button>
+          <button class="icon-btn" id="openProfileTopBtn" title="مینیۆ و پڕۆفایل">☰</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- 1. HOME VIEW -->
+        <section class="view active" id="view-home">
+          <div class="hero-grid">
+            <div class="hero-card quran-hero">
+              <span class="badge-emerald">بەردەوام بە ل خواندنێ</span>
+              <h3>سُورَةُ الْبَقَرَةِ — لاپەڕ ١١</h3>
+              <p>جزء ١ • تەفسیرا ساناهی یا بادینی، تەجوید ب رەنگان و ژبەرکرن ب ئێک کلیک.</p>
+              <div class="hero-actions">
+                <button class="btn-primary" data-jump="quran">▶ قورئانێ بخوینە</button>
+                <button class="btn-ghost" data-jump="lessons">وانێن من (٠/٥)</button>
+              </div>
+            </div>
+
+            <div class="hero-card prayer-hero" data-jump="prayer">
+              <div class="prayer-hero-top">
+                <span>📍 دهۆک</span>
+                <span class="badge-gold">بانگێ دویڤدا</span>
+              </div>
+              <div class="prayer-hero-mid">
+                <div>
+                  <div class="next-prayer">عەیشا • ٦:٣٢</div>
+                  <div class="countdown" id="prayerCountdown">00:41:57</div>
+                </div>
+                <div class="qibla-badge">
+                  <div class="mini-compass"><span>▲</span></div>
+                  <small>قیبلە ١٩٠.٩°</small>
+                </div>
+              </div>
+              <div class="prayer-strip">
+                <span>سپێدە ٥:٠٨</span>
+                <span>نیڤڕۆ ١٢:٠٠</span>
+                <span>ئێڤاری ٢:٤٩</span>
+                <span>مەغرەب ٥:١١</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <h3>بەشێن سەرەکی</h3>
+            <span>دیزاینەکا رێکوپێک و ئارام بۆ چاڤان</span>
+          </div>
+
+          <div class="clean-grid" id="homeFeaturesGrid">
+            <button class="tile" data-jump="quran">
+              <div class="tile-icon">📖</div>
+              <div><strong>قورئانا پیرۆز</strong><span>مەصحەف، تەجوید، تەفسیر</span></div>
+            </button>
+            <button class="tile" data-jump="lessons">
+              <div class="tile-icon">🎓</div>
+              <div><strong>وانە و ئاست</strong><span>ئاستێ ١ تا ٤ • شڕۆڤەیا پەرتووکان</span></div>
+            </button>
+            <button class="tile" data-jump="teachers">
+              <div class="tile-icon">🎙️</div>
+              <div><strong>مامۆستا</strong><span>گوتار، وانە، ڤیدیۆ، بەرسڤ</span></div>
+            </button>
+            <button class="tile" data-jump="hadith">
+              <div class="tile-icon">❝</div>
+              <div><strong>فەرموودە</strong><span>ب پشک و شڕۆڤەیا بادینی</span></div>
+            </button>
+            <button class="tile" data-jump="dhikr">
+              <div class="tile-icon">📿</div>
+              <div><strong>زکر و دوعا</strong><span>سپێدە، ئێڤار، شەڤ</span></div>
+            </button>
+            <button class="tile" data-jump="prayer">
+              <div class="tile-icon">🕌</div>
+              <div><strong>دەمێن بانگان</strong><span>کۆمپاسا قیبلێ و ئاگەهداری</span></div>
+            </button>
+            <button class="tile" data-jump="lessons">
+              <div class="tile-icon">📚</div>
+              <div><strong>متون طالب العلم</strong><span>خواندن و ژبەرکرنا مەتنان</span></div>
+            </button>
+            <button class="tile" data-jump="quran" data-sub="reciters">
+              <div class="tile-icon">🎧</div>
+              <div><strong>قورئانخوین</strong><span>١٥٣ قورئانخوین + یێن بادینان</span></div>
+            </button>
+            <button class="tile" id="halqaBtn">
+              <div class="tile-icon">🟢</div>
+              <div><strong>حەلەقا زیندی</strong><span>خواندنا ب کۆم و راستڤەکرن</span></div>
+            </button>
+          </div>
+
+          <div class="section-head">
+            <h3>پێشکەفتنا تە یا رۆژانە</h3>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-top"><span>زنجیرا زکران</span><strong id="homeDhikrCount">٠ / ٣</strong></div>
+              <div class="bar"><div class="fill" id="homeDhikrBar" style="width: 10%"></div></div>
+              <small>زکرێن ئەڤرۆ تەمام بکە</small>
+            </div>
+            <div class="stat-card">
+              <div class="stat-top"><span>ئاستێ ١ — دەستپێک</span><strong>٠ / ٥ پەرتووک</strong></div>
+              <div class="bar"><div class="fill" style="width: 14%"></div></div>
+              <small>الأصول الثلاثة وأدلتها — وانە ١</small>
+            </div>
+            <div class="stat-card">
+              <div class="stat-top"><span>متون طالب العلم</span><strong>٠ / ٣٧</strong></div>
+              <div class="bar"><div class="fill" style="width: 6%"></div></div>
+              <small>المستوى التمهيدي (الأذكار والآداب)</small>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. QURAN VIEW -->
+        <section class="view" id="view-quran">
+          <div class="toolbar">
+            <div class="segmented" id="quranTabs">
+              <button class="seg active" data-qtab="tafsir">تەفسیرا ساناهی</button>
+              <button class="seg" data-qtab="mushaf">لاپەڕێ مەصحەفێ</button>
+              <button class="seg" data-qtab="reciters">قورئانخوین (١٥٣)</button>
+            </div>
+            <button class="btn-outline" id="playSurahBtn">▶ هەمیێ گوهداری بکە</button>
+          </div>
+
+          <div id="qtab-tafsir" class="qpane active">
+            <div class="surah-banner">
+              <span>مەککی • ٧ ئایەت</span>
+              <h3 class="arabic">سُورَةُ الْفَاتِحَةِ</h3>
+              <span>تەفسیرا بادینی یا ساناهی</span>
+            </div>
+            <div id="ayahContainer" class="ayah-list"></div>
+          </div>
+
+          <div id="qtab-mushaf" class="qpane">
+            <div class="mushaf-card">
+              <div class="mushaf-meta">
+                <span>جزء ١</span>
+                <strong class="arabic">سُورَةُ الْبَقَرَةِ</strong>
+                <span>لاپەڕ ١١</span>
+              </div>
+              <div class="mushaf-text arabic" id="mushafText">
+                قَالُوا۟ ٱدْعُ لَنَا رَبَّكَ يُبَيِّن لَّنَا مَا هِىَ إِنَّ <span class="tj-b">ٱلْبَقَرَ</span> تَشَٰبَهَ عَلَيْنَا وَإِنَّآ إِن شَآءَ <span class="tj-g">ٱللَّهُ</span> لَمُهْتَدُونَ ﴿٧٠﴾ قَالَ إِنَّهُۥ يَقُولُ <span class="tj-r">إِنَّهَا</span> بَقَرَةٌ لَّا ذَلُولٌ تُثِيرُ ٱلْأَرْضَ وَلَا تَسْقِى ٱلْحَرْثَ مُسَلَّمَةٌ لَّا شِيَةَ فِيهَا ۚ قَالُوا۟ ٱلْـَٔـٰنَ جِئْتَ بِٱلْحَقِّ ۚ فَذَبَحُوهَا وَمَا كَادُوا۟ يَفْعَلُونَ ﴿٧١﴾ وَإِذْ قَتَلْتُمْ نَفْسًا فَٱدَّٰرَٰٔتُمْ فِيهَا ۖ وَٱللَّهُ مُخْرِجٌ مَّا كُنتُمْ تَكْتُمُونَ ﴿٧٢﴾ فَقُلْنَا ٱضْرِبُوهُ بِبَعْضِهَا ۚ كَذَٰلِكَ يُحْىِ ٱللَّهُ ٱلْمَوْتَىٰ وَيُرِيكُمْ ءَايَٰتِهِۦ لَعَلَّكُمْ تَعْقِلُونَ ﴿٧٣﴾
+              </div>
+              <div class="mushaf-actions">
+                <button class="chip active" id="tajweedBtn">🎨 تەجوید: چالاک</button>
+                <button class="chip" id="hideTextBtn">👁️ ژبەرکرن (ڤەشارتن)</button>
+                <button class="chip" id="bookmarkPageBtn">🔖 نیشانکرنا لاپەڕی</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="qtab-reciters" class="qpane">
+            <div class="info-banner">
+              <strong>١٥٣ قورئانخوین — روایەتا حەفص</strong>
+              <p>فێرکرن: قاری دخوینیت و تو ل دووڤ دووبارە دکەی</p>
+            </div>
+            <div id="recitersList" class="cards-list"></div>
+          </div>
+        </section>
+
+        <!-- 3. LESSONS VIEW -->
+        <section class="view" id="view-lessons">
+          <div class="lessons-top-grid">
+            <div class="spotlight">
+              <span class="badge-emerald">دەستپێک</span>
+              <h3>الأصول الثلاثة وأدلتها</h3>
+              <p>٠ ژ ٢١ پەرتووکان • شڕۆڤەیا م. فەهیل عادل</p>
+              <button class="btn-primary" id="openCourseBtn">ڤەکرنا وانان (١٤)</button>
+            </div>
+            <div class="spotlight">
+              <span class="badge-gold">متون طالب العلم</span>
+              <h3>پلانا ژبەرکرنا مەتنان</h3>
+              <p>خواندن • گوهداری ب دەنگێ د. عبد المحسن القاسم • ژبەرکرن</p>
+              <button class="btn-outline" id="metunInfoBtn">٠ / ٣٧ ژبەرکری</button>
+            </div>
+          </div>
+
+          <div id="levelsPanel">
+            <div class="level-box">
+              <div class="level-head">
+                <div>
+                  <h4>ئاستێ ١ — دەستپێک و بنیاد</h4>
+                  <small>٠ / ٥ پەرتووک • ٠%</small>
+                </div>
+                <span class="badge-emerald">چالاک</span>
+              </div>
+              <div id="level1List" class="cards-list"></div>
+            </div>
+
+            <div class="level-box locked">
+              <div class="level-head">
+                <div>
+                  <h4>ئاستێ ٢ — ئاڤاکرنا زمان و بیروباوەریێ</h4>
+                  <small>پشتی تەمامکرنا ئاستێ ١ دێ ڤەبیت</small>
+                </div>
+                <span>🔒 گرتییە</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="courseEpisodesPanel" class="hidden">
+            <button class="btn-ghost" id="backLevelsBtn">→ زڤڕین بۆ ئاستان</button>
+            <div class="teacher-banner">
+              <div>
+                <span class="badge-emerald">شڕۆڤەکرنا پەرتووکێ</span>
+                <h3>الأصول الثلاثة وأدلتها — م. فەهیل عادل</h3>
+                <p>ل کەناڵێ «م. هارون ناجی» • <span id="epProgress">٠ / ١٤ وانە</span></p>
+              </div>
+              <button class="btn-outline" id="changeTeacherBtn">⇄ گوهۆڕینا مامۆستایی</button>
+            </div>
+            <div id="episodesList" class="cards-list"></div>
+          </div>
+        </section>
+
+        <!-- 4. TEACHERS VIEW -->
+        <section class="view" id="view-teachers">
+          <div class="toolbar">
+            <div class="segmented" id="teacherTabs">
+              <button class="seg active" data-ttab="scholars">مامۆستا</button>
+              <button class="seg" data-ttab="cats">جۆرێن وانان</button>
+            </div>
+            <span class="hint">تەسجیل، ڤیدیۆ و پەرتووک ب بادینی</span>
+          </div>
+
+          <div id="ttab-scholars" class="scholars-grid"></div>
+          <div id="ttab-cats" class="cat-grid hidden">
+            <div class="cat-box"><span>🔊</span><strong>گوتار</strong><small>پەیڤێن کاریگەر</small></div>
+            <div class="cat-box"><span>🎧</span><strong>وانە</strong><small>زنجیرە وانێن زانستی</small></div>
+            <div class="cat-box"><span>〰️</span><strong>تۆمار</strong><small>تۆمارێن دەنگی</small></div>
+            <div class="cat-box"><span>🎬</span><strong>ڤیدیۆیێن وانان</strong><small>وانێن ب ڤیدیۆ</small></div>
+            <div class="cat-box"><span>📚</span><strong>پەرتووکێن دەنگی</strong><small>پەرتووکێن بادینی</small></div>
+            <div class="cat-box"><span>💬</span><strong>پرسیار و بەرسڤ</strong><small>بەرسڤێن شەرعی</small></div>
+          </div>
+        </section>
+
+        <!-- 5. DHIKR VIEW -->
+        <section class="view" id="view-dhikr">
+          <div class="toolbar">
+            <div class="segmented" id="dhikrTimeTabs">
+              <button class="seg active" data-dtime="morning">🌅 سپێدە</button>
+              <button class="seg" data-dtime="evening">🌇 ئێڤار</button>
+              <button class="seg" data-dtime="night">🌙 شەڤ</button>
+            </div>
+            <div class="dhikr-filters">
+              <button class="chip active" data-dlen="all">هەمی</button>
+              <button class="chip" data-dlen="short">کورت</button>
+              <button class="chip active" id="badiniToggleBtn">🌐 بادینی</button>
+            </div>
+          </div>
+          <div id="dhikrContainer" class="dhikr-list"></div>
+        </section>
+
+        <!-- 6. HADITH VIEW -->
+        <section class="view" id="view-hadith">
+          <div class="toolbar">
+            <div class="segmented" id="hadithLangTabs">
+              <button class="seg active" data-hlang="بادینی">بادینی</button>
+              <button class="seg" data-hlang="سۆرانی">سۆرانی</button>
+              <button class="seg" data-hlang="العربية">العربية</button>
+              <button class="seg" data-hlang="English">English</button>
+            </div>
+            <span class="hint">فەرموودێن پێغەمبەری ﷺ ب پشک و شڕۆڤە</span>
+          </div>
+          <div id="hadithList" class="cards-list"></div>
+        </section>
+
+        <!-- 7. PRAYER VIEW -->
+        <section class="view" id="view-prayer">
+          <div class="prayer-layout">
+            <div class="prayer-panel">
+              <div class="prayer-panel-head">
+                <div>
+                  <span class="badge-gold">📍 دهۆک</span>
+                  <h3>بانگێ دویڤدا: عەیشا (٦:٣٢)</h3>
+                  <p>ل گۆر جهێ تە، دگەل دەنگێ بانگی و ئاگەهداریێ</p>
+                </div>
+                <div class="countdown big" id="prayerCountdownBig">00:41:57</div>
+              </div>
+              <div id="prayerTimesList" class="cards-list"></div>
+            </div>
+
+            <div class="qibla-panel">
+              <h4>کۆمپاسا قیبلێ</h4>
+              <div class="compass-circle">
+                <span class="north">N</span>
+                <div class="needle"></div>
+              </div>
+              <strong>١٩٠.٩° ژ باکووری</strong>
+              <p>سەرێ مۆبایلێ بەرەڤ باکووری بکە (N)؛ تیرا زێڕین قیبلەیێ نیشان ددەت.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Docked Mobile Bottom Navigation (Zero overlap!) -->
+    <nav class="mobile-nav">
+      <button class="m-btn active" data-view="home"><span>⌂</span><small>سەرەکی</small></button>
+      <button class="m-btn" data-view="quran"><span>📖</span><small>قورئان</small></button>
+      <button class="m-btn" data-view="teachers"><span>🎙️</span><small>مامۆستا</small></button>
+      <button class="m-btn" data-view="lessons"><span>🎓</span><small>وانە</small></button>
+      <button class="m-btn" data-view="dhikr"><span>📿</span><small>زکر</small></button>
+    </nav>
+  </div>
+
+  <!-- Profile / Side Menu Modal -->
+  <div class="modal-backdrop hidden" id="profileModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>پڕۆفایل و مینیۆ</h3>
+        <button class="icon-btn" id="closeModalBtn">✕</button>
+      </div>
+      <div class="role-box">
+        <div>
+          <strong>تو تالب عیلمی</strong>
+          <small>دشیێ رێکا خۆ بگوهۆڕی بۆ خەلکێ گشتی</small>
+        </div>
+        <button class="btn-outline" id="switchRoleBtn">گوهۆڕین بۆ گشتی</button>
+      </div>
+      <div class="modal-menu">
+        <button class="modal-item" data-jump="hadith">❝ فەرموودە ب پشک و شڕۆڤە</button>
+        <button class="modal-item" data-jump="prayer">🕌 دەمێن بانگان و قیبلە</button>
+        <button class="modal-item" data-jump="dhikr">📿 زکر ب بادینی</button>
+        <button class="modal-item">⬇️ داگرتیێن من (٠ فایل)</button>
+        <button class="modal-item">📅 پلانا من و تۆمارکری</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>
