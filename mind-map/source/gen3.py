@@ -820,4 +820,5 @@ def build():
     open("arabic.html", "w", encoding="utf-8").write(doc)
     print("pages:", len(pages))
 
-build()
+if __name__ == "__main__":
+    build()
